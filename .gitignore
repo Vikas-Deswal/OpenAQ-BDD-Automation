@@ -1,0 +1,8 @@
+# Ignore environment files
+config.env
+
+#Extra files
+.md
+testing.py
+practice.py
+data
