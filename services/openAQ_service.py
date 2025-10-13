@@ -1,17 +1,14 @@
-from utilities.api_client import ApiClient
+from utilities.api_client import get_endpoint_response
 from resources.endpoints import *
-
-# Initialising the API Client having headers & params
-client = ApiClient()
 
 # Hitting Location Endpoint & needs coordinates & radius in KM
 def get_location_data(coordinates, radius):
     params = get_locations_payload(coordinates, radius)
-    return client.get(V3ApiEndpoints.locations, params=params)
+    return get_endpoint_response(V3ApiEndpoints.locations, params=params)
 
 # Hitting Sensors Endpoint & need sensor ID to get measurement value
 def get_sensors_data(sensor_id):
-    return client.get(f"{V3ApiEndpoints.sensors}/{sensor_id}")
+    return get_endpoint_response(f"{V3ApiEndpoints.sensors}/{sensor_id}")
 
 # Function to process the location API response & matching the pollutant
 def get_sensors_id(location_api_response, pollutant):
@@ -28,7 +25,7 @@ def get_latest_measurements(location_api_response, pollutant):
     all_measurements = []
     all_sensors_id = get_sensors_id(location_api_response, pollutant)
     for sensor_id in all_sensors_id:
-        measurements_response = client.get(f"/sensors/{sensor_id}")
+        measurements_response = get_endpoint_response(f"/sensors/{sensor_id}")
         response_sensors = measurements_response.json()['results']
         for measurement in response_sensors:
             if measurement["latest"] is not None:
@@ -38,3 +35,26 @@ def get_latest_measurements(location_api_response, pollutant):
                     "datetime": measurement["latest"]['datetime']['utc']
                 })
     return all_measurements
+
+def get_pagination_length(endpoint_response):
+    response_json = endpoint_response.json()
+    if "results" not in response_json:
+        return False
+    return len(response_json["results"])
+
+def extract_item_ids(response):
+    response_json = response.json()
+    item_ids = []
+    results = response_json.get(['results'], [])
+    for item in results:
+        if "id" in item:
+            item_ids.append(item["id"])
+    return item_ids
+
+# Function to verify overlapping of IDs in multiple pages
+def verify_multi_pagination_items(page_1_response, page_2_response):
+    ids_page_1 = extract_item_ids(page_1_response)
+    ids_page_2 = extract_item_ids(page_2_response)
+
+    overlap = set(ids_page_1).intersection(set(ids_page_2))
+    return len(overlap) > 0

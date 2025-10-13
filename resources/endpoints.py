@@ -6,14 +6,12 @@ class V3ApiEndpoints:
     locations = "/locations"
     sensors = "/sensors"
 
-def get_locations_payload(coordinates, radius):
+def get_locations_payload(coordinates, radius, limit=5, page=1):
     payload = {
         "coordinates": coordinates,
         "radius": radius,
-        "limit": 5,
-        "page": 1
+        "limit": limit,
+        "page": page
     }
     return payload
-
-
 

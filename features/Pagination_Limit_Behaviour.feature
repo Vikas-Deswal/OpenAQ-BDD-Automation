@@ -1,10 +1,27 @@
-# Author: Vikas Deswal at 09/10/25
-  # In Progress Now
+# Author: Vikas Deswal
+# Created on 09/10/25
 
-Feature: Pagination and limit behavior
-  # Enter feature description here
+Feature: Pagination and Limit Behavior
+    As a user of the OpenAQ API
+    I want to verify pagination and limit behavior
+    So that I can ensure consistent and efficient data retrieval
 
-  Scenario: Limit parameter respected
-    Given I request locations with limit=5
-    When I fetch page 1
-    Then I should get exactly 5 items (or ≤ 5 if total < 5)
+  Scenario Outline: Limit parameter is respected
+    Given I call the <endpoint> endpoint with limit <limit> and page <page>
+    When I fetch the response
+    Then the response status should be 200
+    And the response should contain limit or fewer items
+
+    Examples:
+      | endpoint | limit | page |
+      | /locations | 20 | 1 |
+      | /countries | 10 | 2 |
+
+  Scenario Outline: Pagination returns distinct results
+    Given I call the <endpoint> endpoint with limit <limit> for multiple pages
+    When I fetch page 1 and page 2
+    Then Items in both pages should not overlap
+
+    Examples:
+      | endpoint   | limit |
+      | /locations | 5     |
