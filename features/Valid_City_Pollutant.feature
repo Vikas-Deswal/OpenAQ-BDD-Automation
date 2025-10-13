@@ -16,7 +16,7 @@ Feature: Air Quality API - Get latest pollutant measurements
   Scenario Outline: Get latest pollutant measurement using city coordinates
     Given city <city> with pollutant <pollutant> and search radius <radius> KM
     And I have valid coordinates <coordinates> for that city
-    When I request the latest measurement for that pollutant within the radius
+    When I request the location data for pollutant within the radius
     Then the response status should be 200
     And the system should return recent pollutant measurements for city
 
@@ -28,7 +28,7 @@ Feature: Air Quality API - Get latest pollutant measurements
   Scenario Outline: Invalid pollutant should return no results
     Given city <city> with pollutant <pollutant> and search radius <radius> KM
     And I have valid coordinates <coordinates> for that city
-    When I request the latest measurement for that pollutant within the radius
+    When I request the location data for pollutant within the radius
     Then the response status should be 200
     And the system should return empty results
     Examples:
