@@ -22,10 +22,6 @@ def get_logger():
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
-
     return logger
 
 logger = get_logger()

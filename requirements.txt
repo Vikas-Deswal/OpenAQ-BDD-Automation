@@ -1,3 +1,4 @@
 behave
 requests
 allure-behave
+allure-pytest-bdd

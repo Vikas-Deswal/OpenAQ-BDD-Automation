@@ -1,4 +1,4 @@
-from utilities.api_client import get_endpoint_response
+from utilities.api_client import *
 from resources.endpoints import *
 
 # Hitting Location Endpoint & needs coordinates & radius in KM
@@ -12,7 +12,7 @@ def get_sensors_data(sensor_id):
 
 # Function to process the location API response & matching the pollutant
 def get_sensors_id(location_api_response, pollutant):
-    loc_data = location_api_response.json()['results']
+    loc_data = get_results(location_api_response)
     sensors_id = []
     for location in loc_data:
         for sensor in location['sensors']:
@@ -26,7 +26,7 @@ def get_latest_measurements(location_api_response, pollutant):
     all_sensors_id = get_sensors_id(location_api_response, pollutant)
     for sensor_id in all_sensors_id:
         measurements_response = get_endpoint_response(f"/sensors/{sensor_id}")
-        response_sensors = measurements_response.json()['results']
+        response_sensors = get_results(measurements_response)
         for measurement in response_sensors:
             if measurement["latest"] is not None:
                 all_measurements.append({
@@ -37,15 +37,12 @@ def get_latest_measurements(location_api_response, pollutant):
     return all_measurements
 
 def get_pagination_length(endpoint_response):
-    response_json = endpoint_response.json()
-    if "results" not in response_json:
-        return False
+    response_json = get_results(endpoint_response)
     return len(response_json["results"])
 
 def extract_item_ids(response):
-    response_json = response.json()
     item_ids = []
-    results = response_json.get(['results'], [])
+    results = get_results(response)
     for item in results:
         if "id" in item:
             item_ids.append(item["id"])
