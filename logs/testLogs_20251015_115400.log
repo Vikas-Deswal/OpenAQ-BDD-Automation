@@ -1,0 +1,14 @@
+2025-10-15 11:54:00,713 - <module> - INFO - city set to <city>
+2025-10-15 11:54:00,714 - <module> - INFO - City: Delhi, Pollutant: PM2.5, Radius: 20 km
+2025-10-15 11:54:00,714 - <module> - INFO - Reuse coordinates: 28.744,77.12
+2025-10-15 11:54:00,714 - <module> - INFO - Requesting location data for: Delhi having coordinates: 28.744,77.12 and radius: 20000 km
+2025-10-15 11:54:01,557 - <module> - INFO - Response status code: 200
+2025-10-15 11:54:01,559 - <module> - INFO - Validating response status code
+2025-10-15 11:54:04,748 - <module> - INFO - Received 5 measurements for pollutant PM2.5
+2025-10-15 11:54:04,748 - <module> - INFO - Measurement validation passed successfully.
+2025-10-15 11:54:04,752 - <module> - INFO - City: Mumbai, Pollutant: xyz123, Radius: 15 km
+2025-10-15 11:54:04,753 - <module> - INFO - Reuse coordinates: 18.95,72.83
+2025-10-15 11:54:04,753 - <module> - INFO - Requesting location data for: Mumbai having coordinates: 18.95,72.83 and radius: 15000 km
+2025-10-15 11:54:05,654 - <module> - INFO - Response status code: 200
+2025-10-15 11:54:05,655 - <module> - INFO - Validating response status code
+2025-10-15 11:54:05,657 - <module> - INFO - No results found as expected for pollutant: xyz123

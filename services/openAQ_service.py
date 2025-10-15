@@ -38,7 +38,7 @@ def get_latest_measurements(location_api_response, pollutant):
 
 def get_pagination_length(endpoint_response):
     response_json = get_results(endpoint_response)
-    return len(response_json["results"])
+    return len(response_json)
 
 def extract_item_ids(response):
     item_ids = []

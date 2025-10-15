@@ -1,0 +1,20 @@
+2025-10-15 11:53:34,772 - <module> - INFO - Calling the /countries endpoint
+2025-10-15 11:53:36,166 - <module> - INFO - Verifying returned country code=IN, expected_name=India
+2025-10-15 11:53:36,170 - <module> - INFO - Found valid country: IN
+2025-10-15 11:53:36,170 - <module> - INFO - Validated metadata for code=IN, name=India
+2025-10-15 11:53:36,175 - <module> - INFO - Calling the /countries endpoint
+2025-10-15 11:53:37,413 - <module> - INFO - Getting country id for code=IN
+2025-10-15 11:53:37,414 - <module> - INFO - Found valid country: IN
+2025-10-15 11:53:37,817 - <module> - INFO - Called /countries?id=9
+2025-10-15 11:53:37,819 - <module> - INFO - Validating response status code
+2025-10-15 11:53:37,819 - <module> - INFO - Verifying returned country code=IN, expected_name=India
+2025-10-15 11:53:37,821 - <module> - INFO - Found valid country: IN
+2025-10-15 11:53:37,821 - <module> - INFO - Validated metadata for code=IN, name=India
+2025-10-15 11:53:37,824 - <module> - INFO - Calling the /countries endpoint
+2025-10-15 11:53:39,029 - <module> - INFO - Getting country id for code=DE
+2025-10-15 11:53:39,031 - <module> - INFO - Found valid country: DE
+2025-10-15 11:53:40,464 - <module> - INFO - Called /countries?id=50
+2025-10-15 11:53:40,466 - <module> - INFO - Validating response status code
+2025-10-15 11:53:40,466 - <module> - INFO - Verifying returned country code=DE, expected_name=Germany
+2025-10-15 11:53:40,468 - <module> - INFO - Found valid country: DE
+2025-10-15 11:53:40,468 - <module> - INFO - Validated metadata for code=DE, name=Germany
