@@ -1,7 +1,7 @@
 from behave import *
-import logging
 from services.openAQ_service import *
 from utilities.logging_config import logger
+import allure
 
 # ---- Scenario 1 ----
 @given('a city {city}')
@@ -40,7 +40,7 @@ def request_latest_measurements(context):
 @then('the response status should be {status_code_value:d}')
 def verify_response_status(context, status_code_value):
     logger.info(f"Validating response status code")
-    assert context.response.status_code == status_code_value,  f"Expected 200, got {context.response.status_code}"
+    assert context.response.status_code == status_code_value,  f"Expected {status_code_value}, got {context.response.status_code}"
 
 @then('the system should return recent pollutant measurements for city')
 def retrieve_pollutant_measurements(context):
