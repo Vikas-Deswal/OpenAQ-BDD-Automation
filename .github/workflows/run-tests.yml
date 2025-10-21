@@ -1,0 +1,36 @@
+name: Run Smoke Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      OPENAQ_API_KEY: ${{ secrets.OPENAQ_API_KEY }}
+      OPENAQ_BASE_URL: ${{ secrets.OPENAQ_BASE_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests with Allure
+        run: |
+          behave -f allure_behave.formatter:AllureFormatter -o allure-results --tags=@smoke
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
