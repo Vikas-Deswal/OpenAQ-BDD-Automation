@@ -10,8 +10,7 @@ jobs:
 
     env:
       OPENAQ_API_KEY: ${{ secrets.OPENAQ_API_KEY }}
-      OPENAQ_BASE_URL: ${{ secrets.OPENAQ_BASE_URL }}
-
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
