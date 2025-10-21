@@ -1,8 +1,10 @@
 # OpenAQ API Test Automation Framework
 
-A BDD (Behavior-Driven Development) test automation framework for OpenAQ API using Python and Behave.
+[![Run Smoke Tests](https://github.com/Vikas-Deswal/OpenAQ-BDD-Automation/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Vikas-Deswal/OpenAQ-BDD-Automation/actions/workflows/run-tests.yml)
+![Python](https://img.shields.io/badge/python-3.11-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-> **Status:** Work in Progress - 3 more features to be added + CI/CD integration with GitHub Actions
+A BDD (Behavior-Driven Development) test automation framework for OpenAQ API using Python and Behave.
 
 ## About This Project
 
@@ -35,7 +37,8 @@ AQI/
 1. **Country Metadata** - Validate country details and filtering
 2. **Parameters Metadata** - Test parameter information endpoints
 3. **Pagination Behavior** - Verify pagination across endpoints
-4. **City Pollutant Measurements** - Test measurement data retrieval
+4. **City Pollutant Measurements** - Test a city & pollutant measurement data retrieval
+5. **Rate Limit Behaviour** - Test rate limit behaviour across endpoint
 
 ## Prerequisites
 
@@ -152,19 +155,20 @@ allure serve allure-results
 
 ## Key Features
 
-✅ **BDD Approach** - Easy to read test scenarios in plain English  
-✅ **Modular Design** - Separate layers for services, utilities, and steps  
-✅ **Reusable Components** - Common functions for API calls and validations  
-✅ **Environment Configuration** - Easy setup using environment variables  
-✅ **Allure Reporting** - Detailed test reports with charts and graphs  
-✅ **Tag-based Execution** - Run specific test suites using tags
+**BDD Approach** - Easy to read test scenarios in plain English  
+**CI/CD Integration** - Automated testing with GitHub Actions  
+**Modular Design** - Separate layers for services, utilities, and steps  
+**Reusable Components** - Common functions for API calls and validations  
+**Environment Configuration** - Easy setup using environment variables  
+**Allure Reporting** - Detailed test reports with charts and graphs  
+**Tag-based Execution** - Run specific test suites using tags
 
 ## What's Coming Next
 
-- [ ] 3 additional feature scenarios
-- [ ] CI/CD pipeline with GitHub Actions
+- [ ] 2 additional feature scenarios
 - [ ] Enhanced error handling and logging
 - [ ] Performance testing capabilities
+- [ ] Docker containerization
 
 ## Project Highlights
 
