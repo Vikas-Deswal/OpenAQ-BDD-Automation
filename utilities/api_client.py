@@ -9,17 +9,18 @@ kept in one place for easier demonstration.
 """
 
 class ApiClient:
-    def __init__(self):
+    def __init__(self, custom_headers=None):
         self.base_url = base_url
-        self.headers = {"x-api-key": api_key}
+        default_header = {"x-api-key": api_key}
+        self.headers = custom_headers if custom_headers is not None else default_header
 
     def get(self, endpoint, params=None):
         url = self.base_url + endpoint
         return requests.get(url, headers=self.headers, params=params)
 
 # -- Base Service Layer (Can be separate file but keeping here for simple structure) --
-def get_endpoint_response(endpoint, params=None):
-    client = ApiClient()
+def get_endpoint_response(endpoint, headers=None, params=None):
+    client = ApiClient(custom_headers=headers)
     return client.get(endpoint, params=params)
 
 def safe_json(response):

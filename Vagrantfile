@@ -13,8 +13,7 @@ Vagrant.configure("2") do |config|
     sudo apt-get update -y
     sudo apt-get install -y git python3 python3-pip python3-venv curl default-jre
 
-    # Clone your repo
-    # --- Clone the repo if not already cloned ---
+    # Clone the GIT repo
     if [ ! -d "/home/vagrant/openaq" ]; then
       echo "Cloning Repository OpenAQ"
       git clone https://github.com/Vikas-Deswal/OpenAQ-BDD-Automation.git /home/vagrant/openaq
