@@ -8,180 +8,161 @@ A BDD (Behavior-Driven Development) test automation framework for OpenAQ API usi
 
 ## About This Project
 
-This framework tests the OpenAQ API (Air Quality data) using BDD approach. It validates API endpoints, data integrity, pagination, and filtering capabilities.
+A **production-ready BDD automation framework** for testing OpenAQ APIs. Tests real-world scenarios like pagination, rate limits, error handling, and data integrity using plain English test scenarios.
+
+**Perfect for**: Learning API automation, BDD testing, and building SDET portfolios.
 
 ## Tech Stack
 
-- **Language:** Python 3.x
-- **BDD Framework:** Behave
-- **HTTP Client:** Requests
-- **Reporting:** Allure
-- **API:** OpenAQ v3
-- **VM Setup:** Vagrant (Ubuntu)
+| Component | Technology |
+|-----------|------------|
+| Language | Python 3.11 |
+| BDD Framework | Behave |
+| HTTP Client | Requests |
+| Reporting | Allure |
+| CI/CD | GitHub Actions |
+| Containerization | Docker |
+| Infrastructure | Vagrant (Ubuntu) |
 
 ## Project Structure
 
 ```
 AQI/
-├── features/              # BDD feature files (test scenarios)
-├── steps/                 # Step definitions (test implementation)
-├── services/              # Business logic layer
-├── utilities/             # Helper functions and configurations
-├── resources/             # API endpoints and constants
+├── features/              # Gherkin test scenarios
+├── steps/                 # Step implementations
+├── services/              # API business logic
+├── utilities/             # Helpers & config
+├── resources/             # Endpoints & constants
 ├── logs/                  # Test execution logs
-└── requirements.txt       # Python dependencies
+└── requirements.txt       # Dependencies
 ```
 
-## Features Covered
+## Test Coverage
 
-1. **Country Metadata** - Validate country details and filtering
-2. **Parameters Metadata** - Test parameter information endpoints
-3. **Pagination Behavior** - Verify pagination across endpoints
-4. **City Pollutant Measurements** - Test a city & pollutant measurement data retrieval
-5. **Rate Limit Behaviour** - Test rate limit behaviour across endpoint
+- Country metadata & filtering
+- Parameter information endpoints
+- Pagination behavior (no overlaps)
+- City pollutant measurements
+- Rate limit validation
+- Error handling (401, 404, 500)
+- Performance benchmarks
 
 ## Prerequisites
 
-- Python 3.8 or higher
-- OpenAQ API Key (free from [OpenAQ](https://openaq.org))
-- pip (Python package manager)
-- **(Optional)** Vagrant + VMware/VirtualBox for VM-based setup
+- **Python** 3.8+
+- **OpenAQ API Key** (free from [openaq.org](https://openaq.org))
+- **pip** (Python package manager)
+- **(Optional)** Vagrant + VMware/VirtualBox
 
-## Setup Instructions
+## Quick Start
 
-### Option A: Using Vagrant (Recommended for Isolated Environment)
-
-Run tests in an Ubuntu VM without affecting your local machine:
+### Option A: Local Setup (Fastest)
 
 ```bash
-# Start the VM (automatically installs all dependencies)
-vagrant up
-
-# SSH into the VM
-vagrant ssh
-
-# Set your API key
-export OPENAQ_API_KEY="your_api_key_here"
-source ~/.bashrc
-
-# Navigate to project and run tests
-cd /home/vagrant/openaq
-behave
-
-# Generate Allure report
-behave -f allure_behave.formatter:AllureFormatter -o allure-results
-allure generate allure-results -o allure-report --clean
-```
-
-**Benefits:**
-- Clean Ubuntu environment
-- All dependencies pre-installed (Python, Allure, Java)
-- No conflicts with your local setup
-- Easy to destroy and recreate
-
-### Option B: Local Setup (Direct Installation)
-
-### 1. Clone the Repository
-
-```bash
+# 1. Clone & setup
 git clone <repository-url>
 cd AQI
-```
-
-### 2. Create Virtual Environment
-
-```bash
 python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+source .venv/bin/activate
 
-### 3. Install Dependencies
-
-```bash
+# 2. Install dependencies
 pip install -r requirements.txt
-```
 
-### 4. Configure Environment Variables
-
-Set your OpenAQ API key:
-
-```bash
+# 3. Set API key
 export OPENAQ_API_KEY="your_api_key_here"
-export OPENAQ_BASE_URL="https://api.openaq.org/v3"
+
+# 4. Run tests
+behave
 ```
 
-Or add to your `~/.bashrc` or `~/.zshrc` for permanent setup:
+### Option B: Using Docker (Containerized)
 
 ```bash
-echo 'export OPENAQ_API_KEY="your_api_key_here"' >> ~/.bashrc
-source ~/.bashrc
+# Pull image from Docker Hub
+docker pull vikasdeswal/openaq-bdd:latest
+
+# Run tests
+docker run -e OPENAQ_API_KEY="your_api_key_here" vikasdeswal/openaq-bdd:latest
+
+# Run with report volume mount
+docker run -e OPENAQ_API_KEY="your_api_key_here" \
+  -v $(pwd)/allure-results:/app/allure-results \
+  vikasdeswal/openaq-bdd:latest
+```
+
+### Option C: Using Vagrant (Isolated Environment)
+
+```bash
+# Start VM with all dependencies pre-installed
+vagrant up
+vagrant ssh
+
+# Set API key and run tests
+export OPENAQ_API_KEY="your_api_key_here"
+cd /home/vagrant/openaq
+behave
 ```
 
 ## Running Tests
 
-### Run All Tests
-
 ```bash
+# Run all tests
 behave
-```
 
-### Run Specific Feature
-
-```bash
+# Run specific feature
 behave features/country_metadata.feature
-```
 
-### Run Tests by Tag
+# Run by tag
+behave --tags=@smoke          # Quick tests
+behave --tags=@regression     # Full suite
+behave --tags=@negative       # Error scenarios
 
-```bash
-behave --tags=@smoke
-behave --tags=@regression
-behave --tags=@metadata
-```
-
-### Run with Allure Reporting
-
-```bash
+# Generate Allure report
 behave -f allure_behave.formatter:AllureFormatter -o allure-results
 allure serve allure-results
 ```
 
 ## Test Tags
 
-- `@smoke` - Quick smoke tests
-- `@regression` - Full regression suite
-- `@metadata` - Metadata validation tests
-- `@integration` - Integration tests
+| Tag | Purpose |
+|-----|----------|
+| `@smoke` | Quick validation tests |
+| `@regression` | Full test suite |
+| `@metadata` | Metadata validation |
+| `@negative` | Error handling |
+| `@integration` | End-to-end tests |
 
 ## Key Features
 
-**BDD Approach** - Easy to read test scenarios in plain English  
-**CI/CD Integration** - Automated testing with GitHub Actions  
-**Modular Design** - Separate layers for services, utilities, and steps  
-**Reusable Components** - Common functions for API calls and validations  
-**Environment Configuration** - Easy setup using environment variables  
-**Allure Reporting** - Detailed test reports with charts and graphs  
-**Tag-based Execution** - Run specific test suites using tags
+- BDD Approach - Plain English test scenarios
+- CI/CD Ready - GitHub Actions integration
+- Modular Design - Clean separation of concerns
+- Reusable Components - DRY principle throughout
+- Easy Configuration - Environment variables
+- Allure Reports - Beautiful test dashboards
+- Tag-based Execution - Run specific test suites
 
-## What's Coming Next
 
-- [ ] 2 additional feature scenarios
-- [ ] Enhanced error handling and logging
-- [ ] Performance testing capabilities
-- [ ] Docker containerization
+## Learning Outcomes
 
-## Project Highlights
+This project demonstrates:
+- BDD test automation best practices
+- Python API testing with Behave
+- CI/CD pipeline setup with GitHub Actions
+- Docker containerization & optimization
+- Container registry management (Docker Hub)
+- Infrastructure as Code (Vagrant)
+- Professional logging & error handling
+- Allure reporting integration
 
-- Clean and maintainable code structure
-- Follows BDD best practices
-- Easy to extend with new test scenarios
-- Production-ready framework design
-- Comprehensive API coverage
+## Support & Questions
 
-## Author
-
-**Vikas Deswal**
+For issues or questions, please open a GitHub issue or check the documentation.
 
 ---
 
-*This framework demonstrates test automation skills for QA/SDET roles in API testing, BDD frameworks, and Python automation.*
+**Author:** Vikas Deswal  
+**License:** MIT  
+**Status:** Active & Maintained
+
+*Built to demonstrate SDET-level automation skills in API testing, BDD frameworks, and Python.*
